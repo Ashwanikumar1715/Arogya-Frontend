@@ -12,17 +12,24 @@ const [password, setPassword] =useState('')
 const [name, setName] = useState('')
 const navigate = useNavigate()
 
-const Handle = ()=>{
-  axios.post(`https://arogya-backend-t515.onrender.com/user/signUp/`, { 
-    name : name,
-    username : username,
-    password : password
-   }).then((res)=>{
-        navigate('/login')
-   }).catch((err)=>{
-    console.warn(err)
-   })
+const Handle = () => {
+  axios.post('http://localhost:8000/user/signUp', {
+    name: name,
+    username: username,
+    password: password
+  }, {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then((res) => {
+    navigate('/login'); // Redirect to login page on successful signup
+  })
+  .catch((err) => {
+    console.warn(err); // Log the error
+  });
 }
+
 
   return (
     <div className=' h-[85vh] min-w-screen flex items-center justify-center'>

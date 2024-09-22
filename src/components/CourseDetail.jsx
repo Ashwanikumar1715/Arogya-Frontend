@@ -10,7 +10,7 @@ function CourseDetail() {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    axios.get('https://arogya-backend-t515.onrender.com/user/signIn/course')
+    axios.get('http://localhost:8000/user/signIn/course')
     .then((res)=>{
       setCourses(res.data)
       const course = res.data.find(course=> course._id === id);

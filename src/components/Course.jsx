@@ -10,7 +10,7 @@ function Course() {
 
   useEffect(()=>{
     axios.defaults.withCredentials = true
-    axios.get(`https://arogya-backend-t515.onrender.com/user/signIn/course`)
+    axios.get(`http://localhost:8000/user/signIn/course`)
     .then((res)=>{
       setCourses(res.data)
     })

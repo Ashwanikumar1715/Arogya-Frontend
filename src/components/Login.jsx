@@ -9,27 +9,33 @@ function Login({setLoggedIn}) {
   const navigate = useNavigate()
 
 
-  const HandleSubmit = (e)=>{
-    e.preventDefault()
-    console.log("chalu hai")
-    axios.defaults.withCredentials = true;
-    axios.post(`https://arogya-backend-t515.onrender.com/user/signIn/`,{ username, password   })
-    // console.log('kaam ho rha hai')
+  const HandleSubmit = (e) => {
+    e.preventDefault();
+    console.log("chalu hai");
+  
+    axios.post('http://localhost:8000/user/signIn/', { username, password }, 
+      {
+        withCredentials: true,  
+          headers: {
+             "Content-Type": "application/json"
+          }
+      }
+  
+    )
     .then((result) => {
-      // console.log("result",result)
-      if(result.data.sucess){
+      console.log("Response:", result.data);
+      console.log("daa", result);
+      if (result.data.foundUser) { // Corrected here
         setLoggedIn(true);
         navigate('/course');
-        location.reload()
-      }
-      else{
-        console.log("invalid")
+        location.reload(); // Consider removing this if not needed
+      } else {
+        console.log("invalid");
       }
     })
-    .catch(err => console.log(err))
-    
-    
+    .catch(err => console.log(err));
   }
+  
 
   return (
     <div className='h-[85vh] min-w-screen flex items-center justify-center '>

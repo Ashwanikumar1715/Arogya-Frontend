@@ -8,21 +8,45 @@ export default function Navbar(){
 
     const LogOut = () => {
         axios.defaults.withCredentials = true
-        axios.get(`https://arogya-backend-t515.onrender.com/user/signIn/logout`)
+        axios.get(`http://localhost:8000/user/signIn/logout`)
         .then(result => {
             setAuth(!auth)
         })
         console.log("logged out")
     }
-    useEffect(()=>{
-        axios.defaults.withCredentials = true;
-        axios.get(`https://arogya-backend-t515.onrender.com/user/signIn/userdetail`)
-        .then(res=>{
-            // console.log(res.data.message)
-            res.data.message.name? setAuth(res.data): setAuth(!auth)
+    useEffect(() => {
+        axios.get('http://localhost:8000/user/signIn/userdetail', {
+          withCredentials: true,  // Add this line to include cookies
+          headers: {
+             "Content-Type": "application/json"
+          }
         })
-        .catch(err=>console.log(err))
-    },[]);
+        .then(res => {
+          console.log("res", res.data); 
+          res.name ? setAuth(res.data) : setAuth(!auth);
+        })
+        .catch(err => console.log(err));
+     }, []);
+     
+    // useEffect(() => {
+      
+    //     axios.get('http://localhost:8000/user/signIn/userdetail', 
+    //         {
+    //             withCredentials: true, 
+            
+    //         {
+    //       headers: {
+    //          "Content-Type":"application/json"
+    //       }
+    //     }
+    //     })
+    //     .then(res => {
+    //       console.log("res",res);
+    //     //   res.data.message.name ? setAuth(res.data) : setAuth(!auth);
+    //     })
+    //     .catch(err => console.log(err));
+    //   }, []);
+      
 
     function LoggedOut(){
                 return(
@@ -40,7 +64,7 @@ export default function Navbar(){
                 <div className={" items-center p-2 flex"} >
                     <Link to='/purchase' className="px-3 py-2 hover:bg-red-300 rounded">Purchase</Link>
                     <div className="px-3 py-2 hover:bg-red-300 rounded" onClick={LogOut}>Logout</div>
-                    <span>Hello! {auth.message.name}</span>
+                    <span>Hello! {auth.name}</span>
                 </div>
             )
         }

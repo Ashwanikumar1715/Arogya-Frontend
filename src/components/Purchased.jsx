@@ -7,7 +7,7 @@ function Purchased() {
 
     useEffect(()=>{
       axios.defaults.withCredentials = true;
-      axios.get(`https://arogya-backend-t515.onrender.com/user/signin/purchasedCourse`)
+      axios.get(`http://localhost:8000/user/signin/purchasedCourse`)
       .then(res=> setPurchase(res.data.message))
       .catch(err=>console.log(err))
     },[])
